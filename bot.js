@@ -18,13 +18,13 @@ class MyBot {
         }*/
         if (turnContext.activity.type == ActivityTypes.Invoke) {
           //console.log("What is going on here?", turnContext.activity.value);
-          await turnContext.sendActivity({ type: 'invokeResponse', valuestatus: 200 });
+          await turnContext.sendActivity({ type: 'invokeResponse', value: {status: 200}});
           try {
             var val= turnContext.activity.value.data['CompactSelectVal'];
             await turnContext.sendActivity(`Select Value Response: ` + (val || "EMPTY!"));
           }
           catch(e) {
-            //await turnContext.sendActivity(`Select Value Response: NOTHING`);
+            console.log("FEH!", e);
           } 
           
         }

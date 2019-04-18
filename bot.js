@@ -10,13 +10,16 @@ class MyBot {
      */
     async onTurn(turnContext) {
         // See https://aka.ms/about-bot-activity-message to learn more about the message and other activity types.
-        console.log(turnContext.activity.type);
         
+        console.log("activity", turnContext.activity);
+        console.log("activity type", turnContext.activity.type == ActivityTypes.Invoke);
         /*if (turnContext.activity.type === "invoke") {
             await turnContext.sendActivity(`this is an invoke ${ JSON.stringify(turnContext.activity.value) }`);
         }*/
-        if (turnContext.activity.type === ActivityTypes.Invoke) {
-          await turnContext.sendActivity(`this is an invoke`);
+        if (turnContext.activity.type == ActivityTypes.Invoke) {
+          console.log("What is going on here?", turnContext.activity.value);
+          await turnContext.sendActivity(`Select Value Response ` + (turnContext.activity.value.data['CompactSelectVal']));
+          await turnContext.sendActivity({ type: 'invokeResponse', value: { status: 200 }});
         }
         else if (turnContext.activity.type === ActivityTypes.Message) {
             var text = turnContext.activity.text || "";

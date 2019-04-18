@@ -11,7 +11,15 @@ class MyBot {
     async onTurn(turnContext) {
         // See https://aka.ms/about-bot-activity-message to learn more about the message and other activity types.
         if (turnContext.activity.type === ActivityTypes.Message) {
-            await turnContext.sendActivity(`You said '${ turnContext.activity.text }'`);
+            if ( turnContext.activity.text.toLowerCase().includes('help')) {
+                await turnContext.sendActivity(`Here's some help!\n\nPress 1 for an incorrectly encoded OpenUrl on iOS`);
+            }
+            else if (turnContext.activity.text.includes('1') {
+                     await turnContext.sendActivity(`You said '${ turnContext.activity.text }'`);
+            }
+            else {
+                await turnContext.sendActivity(`You said '${ turnContext.activity.text }'`);
+            }
         } else {
             await turnContext.sendActivity(`[${ turnContext.activity.type } event detected]`);
         }

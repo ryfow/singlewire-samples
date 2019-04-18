@@ -8,6 +8,15 @@ class MyBot {
      *
      * @param {TurnContext} on turn context object.
      */
+  async onInvoke(event, cb) {
+    console.log("onInvoke");
+    cb(null, JSON.stringify(
+      {"task": {
+                                                "type": "message",
+                                                "value": "Message text"
+                                              }
+                                            }), 200);
+  }
     async onTurn(turnContext) {
         // See https://aka.ms/about-bot-activity-message to learn more about the message and other activity types.
         
@@ -18,14 +27,19 @@ class MyBot {
         }*/
         if (turnContext.activity.type == ActivityTypes.Invoke) {
           //console.log("What is going on here?", turnContext.activity.value);
-          await turnContext.sendActivity({ type: 'invokeResponse', value: {status: 200, body: "foo"}});
+          /*await turnContext.sendActivity({ type: 'invokeResponse', value: {status: 200, body: {
+                                                                                                "task": {
+                                                                                                  "type": "message",
+                                                                                                  "value": "Message text"
+                                                                                                }
+                                                                                              }}});
           try {
             var val= turnContext.activity.value.data['CompactSelectVal'];
             await turnContext.sendActivity(`Select Value Response: ` + (val || "EMPTY!"));
           }
           catch(e) {
             console.log("FEH!", e);
-          } 
+          } */
           
         }
         else if (turnContext.activity.type === ActivityTypes.Message) {

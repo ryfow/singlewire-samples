@@ -14,8 +14,25 @@ class MyBot {
             if ( turnContext.activity.text.toLowerCase().includes('help')) {
                 await turnContext.sendActivity(`Here's some help!\n\nPress 1 for an incorrectly encoded OpenUrl on iOS`);
             }
-            else if (turnContext.activity.text.includes('1') {
-                     await turnContext.sendActivity({"type": "message", "text": "numbe);
+            else if (turnContext.activity.text.includes('1')) {
+              var attachment = {
+                "contentType": "application/vnd.microsoft.card.adaptive",
+                "content": {
+    "type": "AdaptiveCard",
+    "body": [
+        {
+            "type": "TextBlock",
+            "size": "Medium",
+            "weight": "Bolder",
+            "text": "Publish Adaptive Card schema"
+        }],
+                  "actions": [
+                    {
+                        "type": "Action.Submit",
+                        "title": "OK"
+                    }
+                ]}};
+                await turnContext.sendActivity({"type": "message", "text": "number one!", "attachments" : [attachment]});
             }
             else {
                 await turnContext.sendActivity(`You said '${ turnContext.activity.text }'`);

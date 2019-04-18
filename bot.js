@@ -18,7 +18,7 @@ class MyBot {
         }*/
         if (turnContext.activity.type == ActivityTypes.Invoke) {
           //console.log("What is going on here?", turnContext.activity.value);
-          await turnContext.sendActivity({ type: 'invokeResponse', value: {status: 200}});
+          await turnContext.sendActivity({ type: 'invokeResponse', value: {status: 200, body: "foo"}});
           try {
             var val= turnContext.activity.value.data['CompactSelectVal'];
             await turnContext.sendActivity(`Select Value Response: ` + (val || "EMPTY!"));

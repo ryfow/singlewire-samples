@@ -18,20 +18,20 @@ class MyBot {
               var attachment = {
                 "contentType": "application/vnd.microsoft.card.adaptive",
                 "content": {
-    "type": "AdaptiveCard",
-    "body": [
-        {
-            "type": "TextBlock",
-            "size": "Medium",
-            "weight": "Bolder",
-            "text": "Publish Adaptive Card schema"
-        }],
-                  "actions": [
-                    {
-                        "type": "Action.Submit",
-                        "title": "OK"
-                    }
-                ]}};
+      "type": "AdaptiveCard",
+      "body": [
+          {
+              "type": "TextBlock",
+              "size": "Medium",
+              "weight": "Bolder",
+              "text": "Publish Adaptive Card schema"
+          }],
+                    "actions": [
+                      {
+                          "type": "Action.Submit",
+                          "title": "OK"
+                      }
+                  ]}};
                 await turnContext.sendActivity({"type": "message", "text": "number one!", "attachments" : [attachment]});
             }
             else {

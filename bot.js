@@ -8,13 +8,15 @@ class MyBot {
      *
      * @param {TurnContext} on turn context object.
      */
-    async onInvoke(f) {
-    }
     async onTurn(turnContext) {
         // See https://aka.ms/about-bot-activity-message to learn more about the message and other activity types.
+        console.log(turnContext.activity.type);
         
-        if (turnContext.activity.type === ActivityTypes.Invoke || turnContext.activity.type === ActivityTypes.Event) {
-            //turnContext
+        /*if (turnContext.activity.type === "invoke") {
+            await turnContext.sendActivity(`this is an invoke ${ JSON.stringify(turnContext.activity.value) }`);
+        }*/
+        if (turnContext.activity.type === ActivityTypes.Invoke) {
+          await turnContext.sendActivity(`this is an invoke`);
         }
         else if (turnContext.activity.type === ActivityTypes.Message) {
             var text = turnContext.activity.text || "";

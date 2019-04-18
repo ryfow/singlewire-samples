@@ -15,7 +15,7 @@ class MyBot {
                 await turnContext.sendActivity(`Here's some help!\n\nPress 1 for an incorrectly encoded OpenUrl on iOS`);
             }
             else if (turnContext.activity.text.includes('1') {
-                     await turnContext.sendActivity(`You said '${ turnContext.activity.text }'`);
+                     await turnContext.sendActivity({"type": "message", "text": "numbe);
             }
             else {
                 await turnContext.sendActivity(`You said '${ turnContext.activity.text }'`);

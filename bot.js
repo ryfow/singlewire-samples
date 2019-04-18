@@ -18,22 +18,49 @@ class MyBot {
               var attachment = {
                 "contentType": "application/vnd.microsoft.card.adaptive",
                 "content": {
-      "type": "AdaptiveCard",
-      "body": [
-          {
-              "type": "TextBlock",
-              "size": "Medium",
-              "weight": "Bolder",
-              "text": "Publish Adaptive Card schema"
-          }],
-                    "actions": [
+                  "type": "AdaptiveCard",
+                  "version": "1.0",
+                  "body": [
                       {
-                          "type": "Action.Submit",
-                          "title": "OK"
-                      }
-                  ]}};
-                await turnContext.sendActivity({"type": "message", "text": "number one!", "attachments" : [attachment]});
+                          "type": "TextBlock",
+                          "size": "Medium",
+                          "weight": "Bolder",
+                          "text": "Here is the adaptive card body"
+
+                      }],
+                  "actions": [
+                  {
+                      "type": "Action.OpenUrl",
+                      "url": "https://www.singlewire.com#/that-percent-23-should-be-a-hash",
+                      "title": "OpenUrl"
+                  }]
+                }};
+                await turnContext.sendActivity({"type": "message", "attachments" : [attachment]});
             }
+            else if (turnContext.activity.text.includes('1')) {
+                var attachment = {
+                  "contentType": "application/vnd.microsoft.card.adaptive",
+                  "content": {
+                    "type": "AdaptiveCard",
+                    "version": "1.0",
+                    "body": [
+                        {
+                            "type": "TextBlock",
+                            "size": "Medium",
+                            "weight": "Bolder",
+                            "text": "Here is the adaptive card body"
+
+                        },
+                    ],
+                    "actions": [
+                    {
+                        "type": "Action.OpenUrl",
+                        "url": "https://www.singlewire.com#/that-percent-23-should-be-a-hash",
+                        "title": "OpenUrl"
+                    }]
+                  }};
+                  await turnContext.sendActivity({"type": "message", "attachments" : [attachment]});
+              }
             else {
                 await turnContext.sendActivity(`You said '${ turnContext.activity.text }'`);
             }

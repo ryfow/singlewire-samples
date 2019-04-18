@@ -8,11 +8,16 @@ class MyBot {
      *
      * @param {TurnContext} on turn context object.
      */
+    async onInvoke(f) {
+    }
     async onTurn(turnContext) {
         // See https://aka.ms/about-bot-activity-message to learn more about the message and other activity types.
-        var text = turnContext.activity.text || "";
-      turnContext.sen
-        if (turnContext.activity.type === ActivityTypes.Message) {
+        
+        if (turnContext.activity.type === ActivityTypes.Invoke || turnContext.activity.type === ActivityTypes.Event) {
+            //turnContext
+        }
+        else if (turnContext.activity.type === ActivityTypes.Message) {
+            var text = turnContext.activity.text || "";
             if ( text.toLowerCase().includes('help')) {
                 await turnContext.sendActivity(`Here's some help!\n\nPress 1 for an incorrectly encoded OpenUrl on iOS`);
             }

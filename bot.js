@@ -52,8 +52,16 @@ class MyBot {
                         {
                             "type": "TextBlock",
                             "size": "Medium",
-                            "weight": "Bolder",
-                            "text": "Here is the adaptive card body"
+                            "wrap": true,
+                            "text": "In this example, on iOS, CompactSelectVal is not getting sent in the task/fetch invoke message."
+
+                        },
+                        {
+                            "type": "TextBlock",
+                            "size": "Medium",
+                            "wrap": true,
+                          
+                            "text": "Additionally, on Android, the Action.Submit in the module, does not close the module, even though the server returns an empty 200 response."
 
                         },
                         {

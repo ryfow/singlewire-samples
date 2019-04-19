@@ -30,6 +30,9 @@ const BOT_CONFIGURATION = (process.env.NODE_ENV || DEV_ENVIRONMENT);
 
 // Create HTTP server
 const server = restify.createServer();
+server.use(restify.plugins.bodyParser());
+
+//server.use(restify.bodyParser({ mapParams: false }));
 server.listen(process.env.port || process.env.PORT || 3978, () => {
     console.log(`\n${ server.name } listening to ${ server.url }`);
     console.log(`\nGet Bot Framework Emulator: https://aka.ms/botframework-emulator`);
@@ -74,10 +77,16 @@ const myBot = new MyBot();
 
 // Listen for incoming requests.
 server.post('/api/messages', (req, res) => {
-    
-    adapter.processActivity(req, res, async (context) => {
+    var type = req.body.type;
+    if(type == 'invoke') {
+      res.json(200, {"task": {"type": "message",
+                              "value": "Message text"}});
+    }
+    else {
+      adapter.processActivity(req, res, async (context) => {
         
         // Route to main dialog.
         await myBot.onTurn(context, req, res);
     });
+    }
 });

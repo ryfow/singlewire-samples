@@ -96,7 +96,6 @@ class MyBot {
             
             
             else {
-                //console.log("activity", turnContext.activity);
                 await turnContext.sendActivity(`You said '${ turnContext.activity.text }'`);
             }
         } else {

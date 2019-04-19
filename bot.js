@@ -8,16 +8,8 @@ class MyBot {
      *
      * @param {TurnContext} on turn context object.
      */
-  async onInvoke(event, cb) {
-    console.log("onInvoke");
-    cb(null, JSON.stringify(
-      {"task": {
-                                                "type": "message",
-                                                "value": "Message text"
-                                              }
-                                            }), 200);
-  }
-    async onTurn(turnContext, req, resp) {
+    async onTurn(turnContext, req, res) {
+      //console.log("here!", req);
         // See https://aka.ms/about-bot-activity-message to learn more about the message and other activity types.
         
         //console.log("activity", turnContext.activity);
@@ -40,10 +32,14 @@ class MyBot {
           catch(e) {
             console.log("FEH!", e);
           } */
-          await resp.
-          
+          res.contentType = 'json';
+          await res.send({"task": {"type": "message",
+                                  "value": "Message text"}});
+
+          await turnContext.sendActivity("feh");
         }
         else if (turnContext.activity.type === ActivityTypes.Message) {
+          console.log("message");
             var text = turnContext.activity.text || "";
             if ( text.toLowerCase().includes('help')) {
                 await turnContext.sendActivity(`Here's some help!\n\nPress 1 for an incorrectly encoded OpenUrl on iOS`);

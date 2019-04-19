@@ -120,7 +120,7 @@ server.post('/api/messages', (req, res) => {
       res.send();
     }
     else {
-      adapter.pocessActivity(req, res, async (context) => {
+      adapter.processActivity(req, res, async (context) => {
         
         // Route to main dialog.
         await myBot.onTurn(context, req, res);

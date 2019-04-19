@@ -9,43 +9,12 @@ class MyBot {
      * @param {TurnContext} on turn context object.
      */
     async onTurn(turnContext, req, res) {
-      //console.log("here!", req);
-        // See https://aka.ms/about-bot-activity-message to learn more about the message and other activity types.
-        
-        //console.log("activity", turnContext.activity);
-        //console.log("activity type", turnContext.activity.type == ActivityTypes.Invoke);
-        /*if (turnContext.activity.type === "invoke") {
-            await turnContext.sendActivity(`this is an invoke ${ JSON.stringify(turnContext.activity.value) }`);
-        }*/
-        if (turnContext.activity.type == ActivityTypes.Invoke) {
-          //console.log("What is going on here?", turnContext.activity.value);
-          /*await turnContext.sendActivity({ type: 'invokeResponse', value: {status: 200, body: {
-                                                                                                "task": {
-                                                                                                  "type": "message",
-                                                                                                  "value": "Message text"
-                                                                                                }
-                                                                                              }}});
-          try {
-            var val= turnContext.activity.value.data['CompactSelectVal'];
-            await turnContext.sendActivity(`Select Value Response: ` + (val || "EMPTY!"));
-          }
-          catch(e) {
-            console.log("FEH!", e);
-          } */
-          res.contentType = 'json';
-          await res.send({"task": {"type": "message",
-                                  "value": "Message text"}});
-
-          await turnContext.sendActivity("feh");
-        }
-        else if (turnContext.activity.type === ActivityTypes.Message) {
-          console.log("message");
+      
+        if (turnContext.activity.type === ActivityTypes.Message) {
+          
             var text = turnContext.activity.text || "";
-            if ( text.toLowerCase().includes('help')) {
-                await turnContext.sendActivity(`Here's some help!\n\nPress 1 for an incorrectly encoded OpenUrl on iOS`);
-            }
-            else if (text.includes('1')) {
-              var attachment = {
+            if (true) {
+              var attachments = [{
                 "contentType": "application/vnd.microsoft.card.adaptive",
                 "content": {
                   "type": "AdaptiveCard",
@@ -54,8 +23,17 @@ class MyBot {
                       {
                           "type": "TextBlock",
                           "size": "Medium",
-                          "weight": "Bolder",
-                          "text": "Here is the adaptive card body"
+                          "wrap": true,
+                          "text": "This example shows how Action.OpenUrl percent encodes urls on iOS. "+
+                                  "If you click on the button on desktop or android, a browser pops up with " + 
+                        "the correct url of: https://www.singlewire.com#/that-percent-23-should-be-a-hash"
+
+                      },
+                  {
+                          "type": "TextBlock",
+                          "size": "Medium",
+                          "wrap": true,
+                          "text": "If you click on this button in iOS, you end up at the incorrect url of: https://www.singlewire.com%23/that-percent-23-should-be-a-hash"
 
                       }],
                   "actions": [
@@ -64,11 +42,8 @@ class MyBot {
                       "url": "https://www.singlewire.com#/that-percent-23-should-be-a-hash",
                       "title": "OpenUrl"
                   }]
-                }};
-                await turnContext.sendActivity({"type": "message", "attachments" : [attachment]});
-            }
-            else if (text.includes('2')) {
-                var attachment = {
+                }},
+                 {
                   "contentType": "application/vnd.microsoft.card.adaptive",
                   "content": {
                     "type": "AdaptiveCard",
@@ -107,12 +82,11 @@ class MyBot {
                         "title": "Submit",
                         "data":  {"msteams": {"type": "task/fetch"}}
                     }]
-                  }};
-                  await turnContext.sendActivity({"type": "message", "attachments" : [attachment]});
-              }
-            else if (turnContext.activity.value != null) {
-              await turnContext.sendActivity("Value Submitted: " + JSON.stringify(turnContext.activity.value));
+                  }}];
+                await turnContext.sendActivity({"type": "message", "attachments" : attachments});
             }
+            
+            
             else {
                 //console.log("activity", turnContext.activity);
                 await turnContext.sendActivity(`You said '${ turnContext.activity.text }'`);

@@ -17,7 +17,7 @@ class MyBot {
                                               }
                                             }), 200);
   }
-    async onTurn(turnContext) {
+    async onTurn(turnContext, req, resp) {
         // See https://aka.ms/about-bot-activity-message to learn more about the message and other activity types.
         
         //console.log("activity", turnContext.activity);
@@ -40,6 +40,7 @@ class MyBot {
           catch(e) {
             console.log("FEH!", e);
           } */
+          await resp.
           
         }
         else if (turnContext.activity.type === ActivityTypes.Message) {

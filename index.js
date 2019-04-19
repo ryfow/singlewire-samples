@@ -78,12 +78,49 @@ const myBot = new MyBot();
 // Listen for incoming requests.
 server.post('/api/messages', (req, res) => {
     var type = req.body.type;
-    if(type == 'invoke') {
-      res.json(200, {"task": {"type": "message",
-                              "value": "Message text"}});
+    var n = req.body.name;
+    console.log(type);
+    console.log("req", req.body);
+    if(type == 'invoke' && n == 'task/fetch') {
+      res.json(200, {
+                    "task": {
+                      "value": {
+                        "card": {
+                          "content": {
+                            "type": "AdaptiveCard",
+                            "body": [
+                              {"type": "TextBlock",
+                               "wrap": true,
+                               "text": "The following json should have a data/CompactSelectVal key. It does on platforms other than iOS"},
+                              {
+                                "text": "value: " + JSON.stringify(req.body.value),
+                                "wrap": true,
+                                "type": "TextBlock"
+                              },
+
+                            ],
+                            "actions": [
+                              {
+                                "title": "Clicking this on Android doesn't close the window.",
+                                "type": "Action.Submit"
+                              }
+                            ],
+                            "version": "1.0"
+                          },
+                          "contentType": "application/vnd.microsoft.card.adaptive"
+                        }
+                      },
+                      "type": "continue"
+                    },
+                    "responseType": "task"
+                  });
+    }
+    else if(type == 'invoke' && n == 'task/submit') {
+      res.status(200);
+      res.send();
     }
     else {
-      adapter.processActivity(req, res, async (context) => {
+      adapter.pocessActivity(req, res, async (context) => {
         
         // Route to main dialog.
         await myBot.onTurn(context, req, res);

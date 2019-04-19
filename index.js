@@ -79,8 +79,7 @@ const myBot = new MyBot();
 server.post('/api/messages', (req, res) => {
     var type = req.body.type;
     var n = req.body.name;
-    console.log(type);
-    console.log("req", req.body);
+
     if(type == 'invoke' && n == 'task/fetch') {
       res.json(200, {
                     "task": {
